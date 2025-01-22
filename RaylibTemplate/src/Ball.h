@@ -10,10 +10,11 @@ private:
 	bool isTravelingRight;
 	bool isTravelingDown;
 	Color color;
+	Sound seth;
 public:
 	Ball();
 	void Draw();
 	void Move();
 private:
-	void CheckBounds();
+	bool CheckBounds(); // returns true if detects out of bounds
 };

@@ -3,13 +3,14 @@
 Ball::Ball()
 {
 	position.x = 350;
-	position.y = 200;
+	position.y = 195;
 	radius = 20;
 	color = BLUE;
 	isTravelingDown = true;
 	isTravelingRight = true;
-	horizontalSpeed = 3;
-	verticalSpeed = 2;
+	horizontalSpeed = 5;
+	verticalSpeed = 3.77;
+	seth = LoadSound("sounds\\seth.mp3");
 }
 
 void Ball::Draw()
@@ -19,7 +20,8 @@ void Ball::Draw()
 
 void Ball::Move()
 {
-	CheckBounds();
+	if (CheckBounds())
+		PlaySound(seth);
 
 	if (isTravelingRight)
 		position.x += horizontalSpeed;
@@ -32,17 +34,31 @@ void Ball::Move()
 		position.y -= verticalSpeed;
 }
 
-void Ball::CheckBounds()
+bool Ball::CheckBounds()
 {
 	if (position.x + radius >= GetScreenWidth())
+	{
 		isTravelingRight = false;
+		return true;
+	}
 
 	if (position.x - radius <= 0)
+	{
 		isTravelingRight = true;
+		return true;
+	}
 
 	if (position.y + radius >= GetScreenHeight())
+	{
 		isTravelingDown = false;
+		return true;
+	}
 
 	if (position.y - radius <= 0)
+	{
 		isTravelingDown = true;
+		return true;
+	}
+
+	return false;
 }
